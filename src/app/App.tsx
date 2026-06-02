@@ -1,3 +1,5 @@
+"use client";
+
 import { Board } from "../components/Board";
 import { BoardTile } from "../types/game";
 import  SocketTest from "../components/SocketTest";
