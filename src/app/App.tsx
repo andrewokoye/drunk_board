@@ -3,6 +3,7 @@
 import { Board } from "../components/Board";
 import { BoardTile } from "../types/game";
 import  SocketTest from "../components/SocketTest";
+import LobbyPage from "../components/LobbyPage";
 
 const exampleBoard: BoardTile[] = [
   { position: 1, type: "normal" },
@@ -28,6 +29,7 @@ export default function App() {
             <h1>Tipsy Land</h1>
             <SocketTest />
         </div> 
+        <LobbyPage />
     </>
 )}
 
