@@ -25,11 +25,17 @@ export default function JoinRoomForm({ onRoomJoined } : JoinRoomFormPrompts) {
   return (
     <div>
       <input
+        className="input"
         value={code}
         onChange={(e) => setCode(e.target.value.toUpperCase())}
         placeholder="Enter room code"
       />
-      <button onClick={handleJoin}>Join Room</button>
+      <button 
+        className="btn"
+        onClick={handleJoin}
+      >
+        Join Room
+      </button>
     </div>
   );
 }

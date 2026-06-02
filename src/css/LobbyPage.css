@@ -1,0 +1,66 @@
+/* Container */
+.lobby-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+  font-family: sans-serif;
+}
+
+/* Buttons */
+.btn {
+  background-color: #6c5ce7;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  margin: 10px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.btn:hover {
+  background-color: #5a4bd1;
+}
+
+.start-btn {
+  background-color: #00b894;
+}
+
+.start-btn:hover {
+  background-color: #009f7a;
+}
+
+/* Input */
+.input {
+  padding: 10px;
+  margin: 10px;
+  border: 2px solid #dfe6e9;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+/* Room title */
+.room-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* Player list */
+.players-title {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.players-list {
+  list-style: none;
+  padding: 0;
+}
+
+.player-item {
+  background: #dfe6e9;
+  padding: 8px 12px;
+  margin: 6px 0;
+  border-radius: 6px;
+}

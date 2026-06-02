@@ -25,12 +25,12 @@ export default function ListPlayers({ roomId } : {roomId: string}) {
 
   return (
     <div>
-      <h3>Players in Room {roomId}</h3>
-      <ul>
-        {players.map((p) => (
-          <li key={p}>{p}</li>
-        ))}
-      </ul>
+        <h3 className="players-title">Players in Room {roomId}</h3>
+        <ul className="players-list">
+            {players.map((p) => (
+                <li className="player-item" key={p}>{p}</li>
+            ))}
+        </ul>
     </div>
   );
 }

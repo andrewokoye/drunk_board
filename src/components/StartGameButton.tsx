@@ -7,5 +7,10 @@ export default function StartGameButton({ roomId }: {roomId : string}) {
     socket.emit("startGame", roomId);
   }
 
-  return <button onClick={handleStart}>Start Game</button>;
+  return <button 
+            className="btn start-btn"
+            onClick={handleStart}
+          >
+              Start Game
+         </button>;
 }

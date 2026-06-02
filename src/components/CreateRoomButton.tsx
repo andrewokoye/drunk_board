@@ -28,5 +28,10 @@ export default function CreateRoomButton({ onRoomCreated }: CreateRoomButtonProp
     });
   }
 
-  return <button onClick={handleCreateRoom}>Create Room</button>;
+  return <button 
+            className="btn"
+            onClick={handleCreateRoom}
+        >
+            Create Room#
+        </button>;
 }
