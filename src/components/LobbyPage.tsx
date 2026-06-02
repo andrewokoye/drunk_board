@@ -23,6 +23,7 @@ export default function LobbyPage() {
     <div>
       {!roomId && (
         <>
+        <h2>{username}</h2>
           <CreateRoomButton username={username} onRoomCreated={(id, code) => {
             setRoomId(id);
             setRoomCode(code);

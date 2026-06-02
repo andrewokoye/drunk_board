@@ -11,8 +11,8 @@ interface CreateRoomButtonPrompts {
 export default function CreateRoomButton({ username, onRoomCreated }: CreateRoomButtonPrompts) {
    
     useEffect(() => {
-        socket.on("roomCreated", (roomId, code) => {
-        onRoomCreated(roomId, code);
+        socket.on("roomCreated", ({roomId, roomCode}) => {
+        onRoomCreated(roomId, roomCode);
         });
 
         socket.on("roomError", (msg: string) => {

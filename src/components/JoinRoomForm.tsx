@@ -12,8 +12,8 @@ export default function JoinRoomForm({ username, onRoomJoined } : JoinRoomFormPr
   const [code, setCode] = useState("");
 
   useEffect(() => {
-    socket.on("roomJoined", (roomId, code) => {
-      onRoomJoined(roomId, code);
+    socket.on("roomJoined", ({roomId, roomCode}) => {
+      onRoomJoined(roomId, roomCode);
     });
 
     socket.on("roomError", (msg) => {
