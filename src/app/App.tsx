@@ -1,6 +1,6 @@
 import { Board } from "../components/Board";
 import { BoardTile } from "../types/game";
-import { SocketTest } from "../components/SocketTest";
+import  SocketTest from "../components/SocketTest";
 
 const exampleBoard: BoardTile[] = [
   { position: 1, type: "normal" },
