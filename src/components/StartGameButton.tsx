@@ -2,7 +2,8 @@
 
 import { socket } from "../lib/socket";
 
-export default function StartGameButton({ roomId }: {roomId : string}) {
+export default function StartGameButton({ roomId }: {roomId : number}) {
+  
   function handleStart() {
     socket.emit("startGame", roomId);
   }

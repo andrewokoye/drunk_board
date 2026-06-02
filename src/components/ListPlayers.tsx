@@ -2,18 +2,19 @@
 
 import { useEffect, useState } from "react";
 import { socket } from "../lib/socket";
+import { Player } from "../lib/interfaces";
 
-export default function ListPlayers({ roomId } : {roomId: string}) {
-  const [players, setPlayers] = useState([]);
+export default function ListPlayers({ roomId } : {roomId: number}) {
+  const [players, setPlayers] = useState<Player[]>([]);
 
   useEffect(() => {
     socket.emit("listPlayers", roomId);
 
-    socket.on("playersList", (list) => {
+    socket.on("playersList", (list: Player[]) => {
       setPlayers(list);
     });
 
-    socket.on("playerJoined", (list) => {
+    socket.on("playerJoined", (list: Player[]) => {
       setPlayers(list);
     });
 
@@ -25,12 +26,21 @@ export default function ListPlayers({ roomId } : {roomId: string}) {
 
   return (
     <div>
-        <h3 className="players-title">Players in Room {roomId}</h3>
-        <ul className="players-list">
-            {players.map((p) => (
-                <li className="player-item" key={p}>{p}</li>
-            ))}
-        </ul>
+      <h3 className="players-title">Players in Room {roomId}</h3>
+      <ul className="players-list">
+        {players.map((p) => (
+          <li className="player-item" key={p.username}>
+            {p.username}
+            {p.disconnected && " (disconnected)"}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
+
+/*  Removal button
+<button onClick={() => socket.emit("removePlayer", { roomId, username: p.username })}>
+  Remove
+</button>
+*/

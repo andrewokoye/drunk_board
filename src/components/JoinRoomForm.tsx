@@ -1,25 +1,33 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { socket } from "../lib/socket";
 
 interface JoinRoomFormPrompts {
-    onRoomJoined: (code: string) => void
+    username: string;
+    onRoomJoined: (roomId: number,  code: string) => void;
 }
 
-export default function JoinRoomForm({ onRoomJoined } : JoinRoomFormPrompts) {
+export default function JoinRoomForm({ username, onRoomJoined } : JoinRoomFormPrompts) {
   const [code, setCode] = useState("");
 
-  function handleJoin() {
-    socket.emit("joinRoom", code);
-
-    socket.on("playerJoined", () => {
-      onRoomJoined(code);
+  useEffect(() => {
+    socket.on("roomJoined", (roomId, code) => {
+      onRoomJoined(roomId, code);
     });
 
     socket.on("roomError", (msg) => {
       alert(msg);
     });
+
+    return () => {
+        socket.off("playerJoined");
+        socket.off("roomError");
+    };
+  }, [onRoomJoined, code]);
+  
+  function handleJoin() {
+    socket.emit("joinRoom", {roomCode: code, username});
   }
 
   return (

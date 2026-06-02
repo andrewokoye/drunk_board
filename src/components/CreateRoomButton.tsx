@@ -1,12 +1,30 @@
 "use client";
 
+import { useEffect } from "react";
 import { socket } from "../lib/socket";
 
-interface CreateRoomButtonProps {
-  onRoomCreated: (roomId: string) => void;
+interface CreateRoomButtonPrompts {
+    username: string;
+    onRoomCreated: (roomId: number, code: string) => void;
 }
 
-export default function CreateRoomButton({ onRoomCreated }: CreateRoomButtonProps) {
+export default function CreateRoomButton({ username, onRoomCreated }: CreateRoomButtonPrompts) {
+   
+    useEffect(() => {
+        socket.on("roomCreated", (roomId, code) => {
+        onRoomCreated(roomId, code);
+        });
+
+        socket.on("roomError", (msg: string) => {
+        alert(msg);
+        });
+
+        return () => {
+        socket.off("roomCreated");
+        socket.off("roomError");
+        };
+    }, [onRoomCreated]);
+
   function generateCode() {
     const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     return Array.from({ length: 4 }, () =>
@@ -15,23 +33,14 @@ export default function CreateRoomButton({ onRoomCreated }: CreateRoomButtonProp
   }
 
   function handleCreateRoom() {
-    const roomId = generateCode();
-
-    socket.emit("createRoom", roomId);
-
-    socket.on("roomCreated", () => {
-      onRoomCreated(roomId);
-    });
-
-    socket.on("roomError", (msg) => {
-      alert(msg);
-    });
+    const roomCode = generateCode();
+    socket.emit("createRoom", { roomCode, username });
   }
 
   return <button 
             className="btn"
             onClick={handleCreateRoom}
         >
-            Create Room#
+            Create Room
         </button>;
 }
