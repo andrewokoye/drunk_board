@@ -1,5 +1,6 @@
 import { Board } from "../components/Board";
 import { BoardTile } from "../types/game";
+import { SocketTest } from "../components/SocketTest";
 
 const exampleBoard: BoardTile[] = [
   { position: 1, type: "normal" },
@@ -12,5 +13,21 @@ const exampleBoard: BoardTile[] = [
 ];
 
 export default function App() {
-  return <Board tiles={exampleBoard} />;
-}
+  return (
+    <>
+        <Board tiles={exampleBoard} />
+        <span>
+
+
+
+
+        </span>
+        <div>
+            <h1>Tipsy Land</h1>
+            <SocketTest />
+        </div> 
+    </>
+)}
+
+
+
