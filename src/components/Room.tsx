@@ -1,7 +1,7 @@
-import { motion, AnimatePresence } from 'motion/react';
-import { Copy, Check, Play } from 'lucide-react';
-import { PlayerCard, Player } from './PlayerCard';
-import { useState } from 'react';
+import { motion, AnimatePresence } from "motion/react";
+import { Copy, Check, Play } from "lucide-react";
+import { PlayerCard, Player } from "./PlayerCard";
+import { useState } from "react";
 
 interface RoomProps {
   roomCode: string;
@@ -83,13 +83,13 @@ export function Room({ roomCode, players, onStartGame, canStartGame }: RoomProps
           className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4"
         >
           <AnimatePresence mode="popLayout">
-            {players.map((player, index) => (
+            {players.map((player) => (
               <PlayerCard
                 key={player.id}
                 id={player.id}
                 username={player.username}
                 disconnected={player.disconnected}
-                colorIndex={index}
+                colorIndex={player.colorIndex}
               />
             ))}
           </AnimatePresence>
@@ -120,7 +120,11 @@ export function Room({ roomCode, players, onStartGame, canStartGame }: RoomProps
         className="w-full max-w-md mx-auto"
       >
         <motion.button
-          whileHover={canStartGame ? { scale: 1.02, boxShadow: '0 0 30px rgba(0, 184, 148, 0.6)' } : {}}
+          whileHover={
+            canStartGame
+              ? { scale: 1.02, boxShadow: "0 0 30px rgba(0, 184, 148, 0.6)" }
+              : {}
+          }
           whileTap={canStartGame ? { scale: 0.98 } : {}}
           onClick={onStartGame}
           disabled={!canStartGame}

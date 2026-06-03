@@ -7,6 +7,7 @@ import { Lobby } from "./Lobby";
 import { Room } from "./Room";
 import { Player } from "./PlayerCard";
 import { socket } from "../lib/socket";
+import { useRouter } from "next/navigation";
 
 export default function LobbyPage() {
   const [username, setUsername] = useState<string | null>(null);
@@ -16,12 +17,12 @@ export default function LobbyPage() {
 
   // Handle socket events
   useEffect(() => {
-    socket.on("roomCreated", ({ roomId, roomCode }) => {
+    socket.on("roomCreated", ({ roomCode }) => {
       setRoomCode(roomCode);
       setInRoom(true);
     });
 
-    socket.on("roomJoined", ({ roomId, roomCode }) => {
+    socket.on("roomJoined", ({ roomCode }) => {
       setRoomCode(roomCode);
       setInRoom(true);
     });
@@ -83,11 +84,15 @@ export default function LobbyPage() {
   };
 
   // Start game
+  const router = useRouter();
+
   const handleStartGame = () => {
-    if (roomCode) {
+  if (roomCode) {
       socket.emit("startGame", roomCode);
-    }
-  };
+      router.push(`/game/${roomCode}`);
+  	}
+  };	
+
 
   return (
     <div className="min-h-screen flex items-center justify-center">

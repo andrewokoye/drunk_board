@@ -2,7 +2,7 @@
 
 import { Board } from "../components/Board";
 import { BoardTile } from "../types/game";
-import  SocketTest from "../components/SocketTest";
+import ConnectionGate from "../components/ConnectionGate";
 import LobbyPage from "../components/LobbyPage";
 
 const exampleBoard: BoardTile[] = [
@@ -18,17 +18,9 @@ const exampleBoard: BoardTile[] = [
 export default function App() {
   return (
     <>
-        <span>
-
-
-
-
-        </span>
-        <div>
-            <h1>Tipsy Land</h1>
-            <SocketTest />
-        </div> 
-        <LobbyPage />
+        <ConnectionGate>
+            <LobbyPage />
+        </ConnectionGate>
     </>
 )}
 
