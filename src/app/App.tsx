@@ -18,7 +18,6 @@ const exampleBoard: BoardTile[] = [
 export default function App() {
   return (
     <>
-        <Board tiles={exampleBoard} />
         <span>
 
 
