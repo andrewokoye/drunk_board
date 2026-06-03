@@ -63,3 +63,12 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+:root {
+  --pastel-purple: #e9d5ff;
+  --pastel-teal: #ccfbf1;
+  --pastel-pink: #fbcfe8;
+  --pastel-mint: #d1fae5;
+  --pastel-blue: #dbeafe;
+  --pastel-yellow: #fef9c3;
+}
