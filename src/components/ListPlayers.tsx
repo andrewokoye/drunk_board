@@ -10,17 +10,20 @@ export default function ListPlayers({ roomId } : {roomId: number}) {
   useEffect(() => {
     socket.emit("listPlayers", roomId);
 
-    socket.on("playersList", (list: Player[]) => {
-      setPlayers(list);
-    });
-
-    socket.on("playerJoined", (list: Player[]) => {
-      setPlayers(list);
+    socket.on("playerJoined", (players) => setPlayers(players));
+    socket.on("playersList", (players) => setPlayers(players));
+    socket.on("playerDisconnected", (username) => {
+        setPlayers(prev =>
+        prev.map(p =>
+            p.username === username ? { ...p, disconnected: true } : p
+        )
+        );
     });
 
     return () => {
       socket.off("playersList");
       socket.off("playerJoined");
+      socket.off("playerDisconnected");
     };
   }, [roomId]);
 
