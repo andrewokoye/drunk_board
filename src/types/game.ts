@@ -7,7 +7,9 @@ export interface Player {
 
   connected: boolean;
 
-  drinksTaken: number;
+  tilesCompleted: number;
+
+  skips: number;
 
   finished: boolean;
 }
@@ -35,8 +37,8 @@ export interface GameState {
 
   status: "lobby" | "playing" | "finished";
 
-  currentTurnPlayerId: string;
-
+  currentTurn: string; 
+  
   players: Player[];
 
   board: BoardTile[];
@@ -45,3 +47,19 @@ export interface GameState {
 
   turnNumber: number;
 }
+
+export type TileEffect =
+  | { type: "normal"; playerId: string }
+  | { type: "drink"; playerId: string; amount: number }
+  | { type: "skipTurn"; playerId: string };
+
+export type ChallengeState = {
+  playerId: string;
+  challengeId: string;
+};
+
+export type WinnerState = {
+  winnerId: string;
+  winnerName: string;
+  finalPlayers: Player[];
+};

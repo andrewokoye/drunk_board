@@ -1,14 +1,10 @@
 "use client";
 
 import { useParams } from "next/navigation";
+import GamePageComponent from "../../../components/GamePage";
 
-export default function GamePage() {
+export default function GamePageRoute() {
   const { roomCode } = useParams();
 
-  return (
-    <div>
-      <h1>Game Room {roomCode}</h1>
-      {/* Board, players, game logic, etc */}
-    </div>
-  );
+  return <GamePageComponent roomCode={roomCode as string} />;
 }
