@@ -1,9 +1,12 @@
 "use client";
 
-import App from "./App";
+import ConnectionGate from "../components/ConnectionGate";
+import LobbyPage from "../components/LobbyPage";
 
 export default function Home() {
   return (
-    App()
+    <ConnectionGate>
+      <LobbyPage />
+    </ConnectionGate>
   );
 }
