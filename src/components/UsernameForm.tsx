@@ -31,7 +31,7 @@ export function UsernameForm({ onSubmit }: UsernameFormProps) {
           transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
           className="inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 bg-linear-to-br from-(--purple) to-(--pink) rounded-full mb-4 sm:mb-6"
         >
-          <Sparkles className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
+          <p className="userloader"><span>Get Drunk</span></p>
         </motion.div>
 
         <motion.h1

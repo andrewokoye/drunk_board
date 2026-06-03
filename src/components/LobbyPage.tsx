@@ -8,6 +8,7 @@ import { Room } from "./Room";
 import { Player } from "./PlayerCard";
 import { socket } from "../lib/socket";
 import { useRouter } from "next/navigation";
+import "../css/LobbyPage.css";
 
 export default function LobbyPage() {
   const [username, setUsername] = useState<string | null>(null);
@@ -29,13 +30,14 @@ export default function LobbyPage() {
 
     socket.on("playerJoined", (updatedPlayers) => {
       setPlayers(
-        updatedPlayers.map((p: Player, index: number) => ({
-          id: p.username,
-          name: p.username,
-          isDisconnected: p.disconnected,
-          colorIndex: index,
-        }))
-      );
+				updatedPlayers.map((p : Player, index : number) => ({
+					id: p.username,
+					username: p.username,
+					disconnected: p.disconnected,
+					colorIndex: index,
+				}))
+			);
+
     });
 
     socket.on("playersList", (updatedPlayers) => {
@@ -95,6 +97,21 @@ export default function LobbyPage() {
 
 
   return (
+		<>
+		<div className="uiverse-midnight-sky">
+			<div className="sky-canvas">
+				<div className="stars stars-1"></div>
+				<div className="stars stars-2"></div>
+				<div className="stars stars-3"></div>
+
+				<div className="meteor m1"></div>
+				<div className="meteor m2"></div>
+				<div className="meteor m3"></div>
+
+				<div className="moon"></div>
+			</div>
+		</div>
+
     <div className="min-h-screen flex items-center justify-center">
       <AnimatePresence mode="wait">
         {!username && (
@@ -125,6 +142,7 @@ export default function LobbyPage() {
         )}
       </AnimatePresence>
     </div>
+		</>
   );
 }
 
