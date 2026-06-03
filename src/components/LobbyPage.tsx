@@ -98,7 +98,7 @@ export default function LobbyPage() {
 
   return (
 		<>
-		<div className="uiverse-midnight-sky">
+		<div className="uiverse-midnight-sky fixed inset-0 -z-10">
 			<div className="sky-canvas">
 				<div className="stars stars-1"></div>
 				<div className="stars stars-2"></div>
@@ -112,7 +112,7 @@ export default function LobbyPage() {
 			</div>
 		</div>
 
-    <div className="min-h-screen flex items-center justify-center">
+    <div className="min-h-screen flex items-center justify-center relative z-0">
       <AnimatePresence mode="wait">
         {!username && (
           <motion.div key="username">

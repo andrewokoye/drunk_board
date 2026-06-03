@@ -203,3 +203,10 @@
     opacity: 0;
   }
 }
+
+.uiverse-midnight-sky,
+.uiverse-midnight-sky * {
+  position: fixed !important;
+  z-index: -9999 !important;
+  pointer-events: none !important;
+}
