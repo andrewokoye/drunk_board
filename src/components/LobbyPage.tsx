@@ -5,7 +5,7 @@ import CreateRoomButton from "./CreateRoomButton";
 import JoinRoomForm from "./JoinRoomForm";
 import ListPlayers from "./ListPlayers";
 import StartGameButton from "./StartGameButton";
-import UsernameForm from "./UsernameForm";
+import { UsernameForm } from "./UsernameForm";
 import "../css/LobbyPage.css";
 
 export default function LobbyPage() {
