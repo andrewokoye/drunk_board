@@ -30,7 +30,7 @@ export function UsernameForm({ onSubmit }: UsernameFormProps) {
           transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
           className="inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 mb-4 sm:mb-6"
         >
-          <p className="userloader">
+          <p className="userloader text-4xl tracking-wide">
             Get <span className="text-(--pink)">Drunk</span>
           </p>
         </motion.div>
