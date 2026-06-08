@@ -37,7 +37,7 @@ export interface GameState {
 
   status: "lobby" | "playing" | "finished";
 
-  currentTurn: string; 
+  current_turn: string; 
   
   players: Player[];
 

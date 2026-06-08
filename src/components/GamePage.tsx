@@ -29,7 +29,7 @@ export default function GamePage({ roomCode }: { roomCode: string }) {
     // TURN CHANGE
     socket.on("turnChanged", (playerId: string) => {
       setGameState((prev) =>
-        prev ? { ...prev, currentTurn: playerId } : prev
+        prev ? { ...prev, current_turn: playerId } : prev
       );
     });
 
@@ -87,7 +87,7 @@ export default function GamePage({ roomCode }: { roomCode: string }) {
     return <WinScreen winner={winner} />;
   }
 
-  const isMyTurn = gameState.currentTurn === myId;
+  const isMyTurn = gameState.current_turn === myId;
 
   return (
     <div className="p-6 space-y-6">
@@ -95,7 +95,7 @@ export default function GamePage({ roomCode }: { roomCode: string }) {
 
       <PlayerList
         players={gameState.players}
-        currentTurn={gameState.currentTurn}
+        current_turn={gameState.current_turn}
       />
 
       <Board players={gameState.players} />
