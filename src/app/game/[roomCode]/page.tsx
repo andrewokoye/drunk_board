@@ -8,3 +8,8 @@ export default function GamePageRoute() {
 
   return <GamePageComponent roomCode={roomCode as string} />;
 }
+
+export const metadata = {
+  title: "Drink",
+};
+
