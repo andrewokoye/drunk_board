@@ -24,6 +24,15 @@ export default function LobbyPage() {
 
   // Handle socket events
   useEffect(() => {
+
+    function handleConnect() {
+      if (socket.id) {
+        setMyId(socket.id);
+      }
+    };
+
+    socket.on("connect", handleConnect);
+
     socket.on("roomCreated", ({ roomCode }) => {
       setRoomCode(roomCode);
       setInRoom(true);
@@ -79,13 +88,7 @@ export default function LobbyPage() {
       socket.emit("requestGameState", { roomCode });
     };
 
-    function handleConnect() {
-      if (socket.id) {
-        setMyId(socket.id);
-      }
-    };
-
-    socket.on("connected", handleConnect);
+   
 
     return () => {
       socket.off("roomCreated");
@@ -94,7 +97,7 @@ export default function LobbyPage() {
       socket.off("playersList");
       socket.off("playerDisconnected");
       socket.off("gameStateUpdated");
-      socket.off("connected");
+      socket.off("connect");
     };
   }, [router, roomCode]);
 
