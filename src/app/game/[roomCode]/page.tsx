@@ -1,13 +1,11 @@
-import { useParams } from "next/navigation";
 import GamePageComponent from "../../../components/GamePage";
 
-export default function GamePageRoute() {
-  const { roomCode } = useParams();
-
-  return <GamePageComponent roomCode={roomCode as string} />;
+export function generateMetadata({ params }: { params: { roomCode: string } }) {
+  return {
+    title: `Room ${params.roomCode}`,
+  };
 }
 
-export const metadata = {
-  title: "Drink",
-};
-
+export default function GamePageRoute({ params }: { params: { roomCode: string } }) {
+  return <GamePageComponent roomCode={params.roomCode} />;
+}
