@@ -26,12 +26,21 @@ export default function LobbyPage() {
   useEffect(() => {
 
     function handleConnect() {
-      if (socket.id) {
+      if (socket.connected && socket.id) {
         setMyId(socket.id);
+        console.log("CLIENT CONNECTED (late):", socket.id);
       }
     };
 
     socket.on("connect", handleConnect);
+
+    Promise.resolve().then(() => {
+      if (socket.connected && socket.id) {
+        setMyId(socket.id);
+        console.log("CLIENT CONNECTED (late):", socket.id);
+      }
+    });
+
 
     socket.on("roomCreated", ({ roomCode }) => {
       setRoomCode(roomCode);
