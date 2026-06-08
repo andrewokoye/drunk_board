@@ -1,8 +1,6 @@
-import LobbyPage from "../../components/LobbyPage";
+"use client";
 
-export const metadata = {
-  title: "Drink",
-};
+import LobbyPage from "../../components/LobbyPage";
 
 export default function lobbyPage() {
   return <LobbyPage />;
