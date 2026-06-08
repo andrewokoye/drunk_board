@@ -118,6 +118,7 @@ export default function GamePage({ roomCode }: { roomCode: string }) {
         effect={tileEffect} 
         myId={myId} 
         current_turn={gameState.current_turn}
+        roomCode={roomCode}
         onClose={() => setTileEffect(null)} />
       )}
 

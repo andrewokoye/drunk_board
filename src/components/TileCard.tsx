@@ -1,15 +1,17 @@
 "use client";
 
 import type { TileEffect } from "../types/game";
+import { socket } from "../lib/socket";
 
 interface TileCardProps {
   effect: TileEffect;
   myId: string | null;
   current_turn: string;
+  roomCode: string; 
   onClose: () => void;
 }
 
-export default function TileCard({ effect, myId, current_turn, onClose }: TileCardProps) {
+export default function TileCard({ effect, myId, current_turn, roomCode, onClose }: TileCardProps) {
   const isMyTurn = current_turn === myId;
 
   return (
@@ -34,7 +36,10 @@ export default function TileCard({ effect, myId, current_turn, onClose }: TileCa
 
       {isMyTurn ? (
         <button
-          onClick={onClose}
+          onClick={() => {
+            socket.emit("tileEffectComplete", { roomCode });
+            onClose();
+          }}
           className="mt-4 px-4 py-2 bg-white text-black rounded hover:bg-gray-200 transition"
         >
           OK
