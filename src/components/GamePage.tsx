@@ -17,10 +17,16 @@ export default function GamePage({ roomCode }: { roomCode: string }) {
   const [tileEffect, setTileEffect] = useState<TileEffect | null>(null);
   const [challenge, setChallenge] = useState<ChallengeState | null>(null);
   const [winner, setWinner] = useState<WinnerState | null>(null);
-
-  const myId = socket.id;
+  const [myId, setMyId] = useState<string | null>(null);
 
   useEffect(() => {
+
+    Promise.resolve().then(() => {
+      if (socket.connected && socket.id) {
+        setMyId(socket.id);
+      }
+    });
+
     //HELP UPDATE
     socket.emit("requestGameState", { roomCode });
 
@@ -108,12 +114,18 @@ export default function GamePage({ roomCode }: { roomCode: string }) {
       {diceResult && <div className="text-xl">Dice: {diceResult}</div>}
 
       {tileEffect && (
-        <TileCard effect={tileEffect} onClose={() => setTileEffect(null)} />
+        <TileCard 
+        effect={tileEffect} 
+        myId={myId} 
+        current_turn={gameState.current_turn}
+        onClose={() => setTileEffect(null)} />
       )}
 
       {challenge && (
         <ChallengeCard
           challenge={challenge}
+          myId={myId}
+          current_turn={gameState.current_turn}
           onComplete={() => {
             socket.emit("challengeResult", { roomCode });
             setChallenge(null);

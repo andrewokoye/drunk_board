@@ -4,17 +4,17 @@ import type { TileEffect } from "../types/game";
 
 interface TileCardProps {
   effect: TileEffect;
+  myId: string | null;
+  current_turn: string;
   onClose: () => void;
 }
 
-export default function TileCard({ effect, onClose }: TileCardProps) {
-  const title = effect.type
-    .replace(/([A-Z])/g, " $1")
-    .replace(/^./, c => c.toUpperCase());
+export default function TileCard({ effect, myId, current_turn, onClose }: TileCardProps) {
+  const isMyTurn = current_turn === myId;
 
   return (
     <div className="border p-4 rounded-lg bg-gray-800 text-white">
-      <h3 className="text-xl mb-2">{title}</h3>
+      <h3 className="text-xl mb-2">{effect.type}</h3>
 
       {effect.type === "drink" && (
         <p>Drink {effect.amount} times.</p>
@@ -32,12 +32,16 @@ export default function TileCard({ effect, onClose }: TileCardProps) {
         <p>You lose your next turn.</p>
       )}
 
-      <button
-        onClick={onClose}
-        className="mt-4 px-4 py-2 bg-white text-black rounded hover:bg-gray-200 transition"
-      >
-        OK
-      </button>
+      {isMyTurn ? (
+        <button
+          onClick={onClose}
+          className="mt-4 px-4 py-2 bg-white text-black rounded hover:bg-gray-200 transition"
+        >
+          OK
+        </button>
+      ) : (
+        <p className="opacity-70 text-sm">(Waiting for the active player…)</p>
+      )}
     </div>
   );
 }
