@@ -18,8 +18,6 @@ export default function LobbyPage() {
   const [hostId, setHostId] = useState<string | null>(null);
   const [myId, setMyId] = useState<string | null>(null);
 
-
-  
   const router = useRouter();
 
   // Handle socket events
@@ -86,8 +84,9 @@ export default function LobbyPage() {
 
     socket.on("gameStateUpdated", (state) => {
       if (state.status === "playing") {
-        router.push(`/game/${roomCode}`);
+        router.push(`/game/${state.room_id}`);
       }
+      console.log("GAME START — navigating to room:", state.room_id);
       
       if (state.host_id) {
         setHostId(state.host_id);
