@@ -8,12 +8,12 @@ export default function ConnectionGate({ children }: { children: React.ReactNode
   const [connected, setConnected] = useState(false);
 
   useEffect(() => {
-    socket.on("connected", () => {
+    socket.on("connect", () => {
       setConnected(true);
     });
 
     return () => {
-      socket.off("connected");
+      socket.off("connect");
     };
   }, []);
 
