@@ -21,6 +21,9 @@ export default function GamePage({ roomCode }: { roomCode: string }) {
   const myId = socket.id;
 
   useEffect(() => {
+    //HELP UPDATE
+    socket.emit("requestGameState", { roomCode });
+
     // FULL GAME STATE UPDATE
     socket.on("gameStateUpdated", (state: GameState) => {
       setGameState(state);
@@ -77,7 +80,7 @@ export default function GamePage({ roomCode }: { roomCode: string }) {
       socket.off("challengeTriggered");
       socket.off("gameWon");
     };
-  }, []);
+  }, [roomCode]);
 
   if (!gameState) {
     return <div>Loading game...</div>;

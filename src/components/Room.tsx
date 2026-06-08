@@ -6,11 +6,14 @@ import { useState } from "react";
 interface RoomProps {
   roomCode: string;
   players: Player[];
+  hostId: string | null;
+  myId: string | null;
   onStartGame: () => void;
   canStartGame: boolean;
 }
 
-export function Room({ roomCode, players, onStartGame, canStartGame }: RoomProps) {
+
+export function Room({ roomCode, players, hostId, myId, onStartGame, canStartGame }: RoomProps) {
   const [copied, setCopied] = useState(false);
 
   const handleCopyCode = () => {
@@ -113,7 +116,7 @@ export function Room({ roomCode, players, onStartGame, canStartGame }: RoomProps
       </div>
 
       {/* Start Game Button */}
-      <motion.div
+      {myId === hostId && ( <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4 }}
@@ -143,7 +146,7 @@ export function Room({ roomCode, players, onStartGame, canStartGame }: RoomProps
             Need at least 2 players to start
           </motion.p>
         )}
-      </motion.div>
+      </motion.div>)}
     </motion.div>
   );
 }

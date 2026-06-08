@@ -15,6 +15,12 @@ export default function LobbyPage() {
   const [roomCode, setRoomCode] = useState<string | null>(null);
   const [players, setPlayers] = useState<Player[]>([]);
   const [inRoom, setInRoom] = useState(false);
+  const [hostId, setHostId] = useState<string | null>(null);
+  const [myId, setMyId] = useState<string | null>(null);
+
+
+  
+  const router = useRouter();
 
   // Handle socket events
   useEffect(() => {
@@ -59,14 +65,38 @@ export default function LobbyPage() {
       );
     });
 
+    socket.on("gameStateUpdated", (state) => {
+      if (state.status === "playing") {
+        router.push(`/game/${roomCode}`);
+      }
+      
+      if (state.host_id) {
+        setHostId(state.host_id);
+      }
+    });
+
+    if (roomCode) {
+      socket.emit("requestGameState", { roomCode });
+    };
+
+    function handleConnect() {
+      if (socket.id) {
+        setMyId(socket.id);
+      }
+    };
+
+    socket.on("connected", handleConnect);
+
     return () => {
       socket.off("roomCreated");
       socket.off("roomJoined");
       socket.off("playerJoined");
       socket.off("playersList");
       socket.off("playerDisconnected");
+      socket.off("gameStateUpdated");
+      socket.off("connected");
     };
-  }, []);
+  }, [router, roomCode]);
 
   // Create room
   const handleCreateRoom = () => {
@@ -86,12 +116,10 @@ export default function LobbyPage() {
   };
 
   // Start game
-  const router = useRouter();
 
   const handleStartGame = () => {
   if (roomCode) {
       socket.emit("startGame", roomCode);
-      router.push(`/game/${roomCode}`);
   	}
   };	
 
@@ -130,11 +158,13 @@ export default function LobbyPage() {
           </motion.div>
         )}
 
-        {username && inRoom && roomCode && (
+        {username && inRoom && roomCode && myId && (
           <motion.div key="room">
             <Room
               roomCode={roomCode}
               players={players}
+              hostId={hostId}
+              myId={myId}
               onStartGame={handleStartGame}
               canStartGame={players.filter((p) => !p.disconnected).length >= 2}
             />
