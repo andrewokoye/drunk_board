@@ -61,10 +61,12 @@ export default function GamePage({ roomCode }: { roomCode: string }) {
       setTileEffect(effect);
     });
 
+
     // CHALLENGE
-    socket.on("challengeTriggered", ({ playerId, challengeId }) => {
-      setChallenge({ playerId, challengeId });
+    socket.on("challengeTriggered", ({ playerId, prompt, type }) => {
+      setChallenge({ playerId, prompt, type });
     });
+
 
     // WIN
     socket.on("gameWon", ({ winnerId, winnerName, finalPlayers }) => {

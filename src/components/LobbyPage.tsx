@@ -110,6 +110,7 @@ export default function LobbyPage() {
       socket.off("gameStateUpdated");
       socket.off("connect");
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

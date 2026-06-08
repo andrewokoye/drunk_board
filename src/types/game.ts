@@ -14,22 +14,30 @@ export interface Player {
   finished: boolean;
 }
 
+export type TileType =
+  | "drink"
+  | "neverHaveIEver"
+  | "mostLikelyTo"
+  | "truth"
+  | "doOrDrink"
+  | "spicyQuestion"
+  | "story"
+  | "pickSomeone"
+  | "moveForward"
+  | "moveBack"
+  | "skipTurn"
+  | "finish";
+
+
 export interface BoardTile {
 
   position: number;
 
-  type:
-    | "normal"
-    | "drink"
-    | "challenge"
-    | "moveForward"
-    | "moveBack"
-    | "skipTurn"
-    | "finish";
+  type: TileType;
 
   value?: number;
 
-  challengeId?: string;
+  prompt?: string;
 }
 
 export interface GameState {
@@ -49,13 +57,16 @@ export interface GameState {
 }
 
 export type TileEffect =
-  | { type: "normal"; playerId: string }
-  | { type: "drink"; playerId: string; amount: number }
+  | { type: "drink"; amount: number; playerId: string }
+  | { type: "moveForward"; amount: number; playerId: string }
+  | { type: "moveBack"; amount: number; playerId: string }
   | { type: "skipTurn"; playerId: string };
+
 
 export type ChallengeState = {
   playerId: string;
-  challengeId: string;
+  prompt: string;
+  type: TileType;
 };
 
 export type WinnerState = {

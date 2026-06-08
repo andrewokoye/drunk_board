@@ -10,9 +10,10 @@ interface ChallengeCardProps {
 export default function ChallengeCard({ challenge, onComplete }: ChallengeCardProps) {
   return (
     <div className="border p-4 rounded-lg bg-purple-800 text-white">
-      <h3 className="text-xl mb-2">Challenge!</h3>
+      <h3 className="text-xl mb-2 capitalize">{challenge.type.replace(/([A-Z])/g, " $1")}</h3>
 
-      <p>Challenge ID: {challenge.challengeId}</p>
+      <p className="mb-4">{challenge.prompt}</p>
+
 
       <button
         onClick={onComplete}
