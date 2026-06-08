@@ -84,6 +84,12 @@ export default function LobbyPage() {
         setHostId(state.host_id);
       }
     });
+
+    console.log("LobbyPage mounted");
+    socket.on("connect", () => console.log("CLIENT CONNECTED:", socket.id));
+    socket.on("roomCreated", (data) => console.log("CLIENT roomCreated:", data));
+    socket.on("roomJoined", (data) => console.log("CLIENT roomJoined:", data));
+
    
     return () => {
       socket.off("roomCreated");
