@@ -43,6 +43,7 @@ export default function LobbyPage() {
     socket.on("roomCreated", ({ roomCode }) => {
       setRoomCode(roomCode);
       setInRoom(true);
+      socket.emit("requestGameState", { roomCode });
     });
 
     socket.on("roomJoined", ({ roomCode }) => {
@@ -83,11 +84,12 @@ export default function LobbyPage() {
     });
 
     socket.on("gameStateUpdated", (state) => {
-      if (state.status === "playing") {
+      console.log("GAME STATE UPDATE:", state);
+
+      if (state.status === "playing" && state.room_id) {
         router.push(`/game/${state.room_id}`);
       }
-      console.log("GAME START — navigating to room:", state.room_id);
-      
+
       if (state.host_id) {
         setHostId(state.host_id);
       }
@@ -108,7 +110,6 @@ export default function LobbyPage() {
       socket.off("gameStateUpdated");
       socket.off("connect");
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -116,7 +117,6 @@ export default function LobbyPage() {
       socket.emit("requestGameState", { roomCode });
     }
   }, [roomCode]);
-
 
   // Create room
   const handleCreateRoom = () => {
