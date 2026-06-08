@@ -59,12 +59,13 @@ export default function LobbyPage() {
       setPlayers(
         updatedPlayers.map((p: Player, index: number) => ({
           id: p.username,
-          name: p.username,
-          isDisconnected: p.disconnected,
+          username: p.username,
+          disconnected: p.disconnected,
           colorIndex: index,
         }))
       );
     });
+
 
     socket.on("playerDisconnected", (username) => {
       setPlayers((prev) =>
