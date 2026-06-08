@@ -84,13 +84,7 @@ export default function LobbyPage() {
         setHostId(state.host_id);
       }
     });
-
-    if (roomCode) {
-      socket.emit("requestGameState", { roomCode });
-    };
-
    
-
     return () => {
       socket.off("roomCreated");
       socket.off("roomJoined");
@@ -100,7 +94,15 @@ export default function LobbyPage() {
       socket.off("gameStateUpdated");
       socket.off("connect");
     };
-  }, [router, roomCode]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (roomCode) {
+      socket.emit("requestGameState", { roomCode });
+    }
+  }, [roomCode]);
+
 
   // Create room
   const handleCreateRoom = () => {
