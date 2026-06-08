@@ -1,5 +1,3 @@
-"use client";
-
 import LobbyPage from "../../components/LobbyPage";
 
 export const metadata = {

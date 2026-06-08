@@ -1,5 +1,3 @@
-"use client";
-
 import { useParams } from "next/navigation";
 import GamePageComponent from "../../../components/GamePage";
 
