@@ -138,8 +138,8 @@ export default function GamePage({ roomCode }: { roomCode: string }) {
           challenge={challenge}
           myId={myId}
           current_turn={gameState.current_turn}
+          roomCode={roomCode}
           onComplete={() => {
-            socket.emit("challengeResult", { roomCode });
             setChallenge(null);
           }}
         />

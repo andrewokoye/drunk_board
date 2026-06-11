@@ -1,11 +1,13 @@
 "use client";
 
 import type { ChallengeState } from "../types/game";
+import { socket } from "../lib/socket";
 
 interface ChallengeCardProps {
   challenge: ChallengeState;
   myId: string | null;
   current_turn: string;
+  roomCode: string | null;
   onComplete: () => void;
 }
 
@@ -13,7 +15,7 @@ export default function ChallengeCard({
   challenge,
   myId,
   current_turn,
-  onComplete
+  roomCode
 }: ChallengeCardProps) {
   const isMyTurn = current_turn === myId;
 
@@ -29,7 +31,9 @@ export default function ChallengeCard({
 
       {isMyTurn ? (
         <button
-          onClick={onComplete}
+          onClick={ () => {
+            socket.emit("challengeResult", { roomCode });
+        }}
           className="mt-4 px-4 py-2 bg-white text-black rounded hover:bg-gray-200 transition"
         >
           Done
