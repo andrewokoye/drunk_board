@@ -193,6 +193,9 @@ export default function LobbyPage() {
         )}
       </AnimatePresence>
     </div>
+    <p className="absolute bottom-2 right-2 text-white text-sm">
+        v0.863
+    </p>
 		</>
   );
 }

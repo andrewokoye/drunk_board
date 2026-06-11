@@ -108,6 +108,8 @@ export default function GamePage({ roomCode }: { roomCode: string }) {
   }
 
   const isMyTurn = gameState.current_turn === myId;
+  const canRoll = isMyTurn && !challenge && !tileEffect;
+
 
   return (
     <div className="p-6 space-y-6">
@@ -143,7 +145,7 @@ export default function GamePage({ roomCode }: { roomCode: string }) {
         />
       )}
 
-      {isMyTurn && !challenge && (
+      {canRoll && (
         <DiceButton onRoll={() => socket.emit("rollDice", { roomCode })} />
       )}
     </div>
