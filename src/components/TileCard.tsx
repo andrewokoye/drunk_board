@@ -11,7 +11,7 @@ interface TileCardProps {
   onClose: () => void;
 }
 
-export default function TileCard({ effect, myId, current_turn, roomCode, onClose }: TileCardProps) {
+export default function TileCard({ effect, myId, current_turn, roomCode }: TileCardProps) {
   const isMyTurn = current_turn === myId;
 
   return (
@@ -38,7 +38,6 @@ export default function TileCard({ effect, myId, current_turn, roomCode, onClose
         <button
           onClick={() => {
             socket.emit("tileEffectComplete", { roomCode });
-            onClose();
           }}
           className="mt-4 px-4 py-2 bg-white text-black rounded hover:bg-gray-200 transition"
         >
