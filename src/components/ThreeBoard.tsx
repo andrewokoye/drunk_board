@@ -28,7 +28,6 @@ export default function ThreeBoard({ players, current_turn, diceResult }: ThreeB
         <directionalLight position={[10, 20, 10]} intensity={1.2} />
         <Tiles3D board={BOARD} currentTileIndex={currentTileIndex}/>
         <Players3D board={BOARD} players={players} />
-        <OrbitControls enablePan enableZoom enableRotate />
         <CameraRig board={BOARD} players={players} current_turn={current_turn} />
         <Dice3D value={diceResult} />
       </Canvas>

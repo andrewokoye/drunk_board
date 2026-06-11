@@ -23,25 +23,25 @@ interface CameraRigProps {
 export default function CameraRig({ board, players, current_turn }: CameraRigProps) {
   const { camera } = useThree();
 
-  const targetPos = useMemo(() => {
-    const current = players.find(p => p.id === current_turn);
-    if (!current) return [0, 10, 10] as [number, number, number];
+    const targetPos = useMemo(() => {
+      const current = players.find(p => p.id === current_turn);
+      if (!current) return [0, 6, 6] as [number, number, number];
 
-    const tileIndex = Math.max(0, (current.position || 1) - 1);
-    const [x, , z] = getTilePositionByIndex(tileIndex);
-    return [x, 8, z + 8] as [number, number, number];
-  }, [players, current_turn]);
+      const tileIndex = Math.max(0, (current.position || 1) - 1);
+      const [x, , z] = getTilePositionByIndex(tileIndex);
+
+      return [x + 3, 6, z + 3] as [number, number, number];
+    }, [players, current_turn]);
 
   useFrame(() => {
   const [tx, ty, tz] = targetPos;
 
-  camera.position.set(
-    camera.position.x + (tx - camera.position.x) * 0.1,
-    camera.position.y + (ty - camera.position.y) * 0.1,
-    camera.position.z + (tz - camera.position.z) * 0.1
+  camera.position.lerp(
+    { x: tx, y: ty, z: tz },
+    0.1
   );
 
-  camera.lookAt(tx, 0, tz - 2);
+  camera.lookAt(tx, 0, tz);
 });
 
   return null;
