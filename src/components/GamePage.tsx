@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { socket } from "../lib/socket";
-import Board from "./Board";
+import ThreeBoard from "./ThreeBoard";
 import PlayerList from "./PlayerList";
 import DiceButton from "./DiceButton";
 import TileCard from "./TileCard";
@@ -120,7 +120,11 @@ export default function GamePage({ roomCode }: { roomCode: string }) {
         current_turn={gameState.current_turn}
       />
 
-      <Board players={gameState.players} />
+      <ThreeBoard 
+        players={gameState.players}
+        current_turn={gameState.current_turn} 
+        diceResult={diceResult}
+      />
 
       {diceResult && <div className="text-xl">Dice: {diceResult}</div>}
 

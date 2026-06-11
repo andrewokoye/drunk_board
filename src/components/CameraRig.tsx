@@ -1,0 +1,48 @@
+"use client";
+
+import { useFrame, useThree } from "@react-three/fiber";
+import { useMemo } from "react";
+import type { Player, BoardTile } from "../types/game";
+
+const TILE_SIZE = 1.2;
+
+function getTilePositionByIndex(index: number) {
+  const row = Math.floor(index / 8);
+  const col = index % 8;
+  const x = (col - 3.5) * TILE_SIZE;
+  const z = (row - 3.5) * TILE_SIZE;
+  return [x, 0, z] as [number, number, number];
+}
+
+interface CameraRigProps {
+  board: BoardTile[];
+  players: Player[];
+  current_turn: string | null;
+}
+
+export default function CameraRig({ board, players, current_turn }: CameraRigProps) {
+  const { camera } = useThree();
+
+  const targetPos = useMemo(() => {
+    const current = players.find(p => p.id === current_turn);
+    if (!current) return [0, 10, 10] as [number, number, number];
+
+    const tileIndex = Math.max(0, (current.position || 1) - 1);
+    const [x, , z] = getTilePositionByIndex(tileIndex);
+    return [x, 8, z + 8] as [number, number, number];
+  }, [players, current_turn]);
+
+  useFrame(() => {
+  const [tx, ty, tz] = targetPos;
+
+  camera.position.set(
+    camera.position.x + (tx - camera.position.x) * 0.1,
+    camera.position.y + (ty - camera.position.y) * 0.1,
+    camera.position.z + (tz - camera.position.z) * 0.1
+  );
+
+  camera.lookAt(tx, 0, tz - 2);
+});
+
+  return null;
+}
