@@ -79,6 +79,14 @@ export default function GamePage({ roomCode }: { roomCode: string }) {
       setWinner({ winnerId, winnerName, finalPlayers });
     });
 
+    // EFFECT RESET
+    socket.on("clearEffects", () => {
+      setTileEffect(null);
+      setChallenge(null);
+      setDiceResult(null);
+    });
+
+
     return () => {
       socket.off("gameStateUpdated");
       socket.off("turnChanged");
@@ -87,6 +95,7 @@ export default function GamePage({ roomCode }: { roomCode: string }) {
       socket.off("tileEffect");
       socket.off("challengeTriggered");
       socket.off("gameWon");
+      socket.off("clearEffects");
     };
   }, [roomCode]);
 
